@@ -19,6 +19,8 @@ intents = discord.Intents.all()
 intents.members = True
 client = commands.Bot(command_prefix='?', intents=intents)
 
+
+#VC-limit for DC as a public-command
 @client.command()
 async def limit(ctx, limit: int):
     
@@ -38,6 +40,7 @@ async def limit(ctx, limit: int):
         await ctx.author.voice.channel.edit(user_limit=limit)
         await ctx.channel.send(f'Das Benutzerlimit für den Kanal {ctx.author.voice.channel.name} wurde auf {limit} gesetzt')
 
+#clear-command for serverteam
 @client.command()
 async def clear(ctx, amount=1):
 
@@ -51,6 +54,7 @@ async def clear(ctx, amount=1):
             #await log_channel.send(" "+ str(amount) +" Nachrichten wurden im Channel "+ message.channel.name +" gelöscht.")
             break
 
+#Cchatfilter for special channels
 @client.event
 async def on_message(message):
     await client.process_commands(message)
@@ -69,6 +73,8 @@ async def on_message(message):
                 if not attachment.url.startswith("https://tenor.com/"):
                     await message.delete()
                     return
+                
+#deleted-message-log without "?clear"-delete
 @client.event                
 async def on_message_delete(message):
 
